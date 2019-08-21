@@ -10,3 +10,6 @@ az group deployment validate -g cloud5minsAz --template-file "deployment/deployA
 
 # deploy it
 az group deployment create -n cloud5mins -g cloud5minsAz --template-file "deployment/deployAzure.json" --parameters "deployment/deployAzure.parameters.json"  --verbose 
+
+
+PS C:\> Set-AzResource -ResourceGroupName todelete -Name Auto-test  -Tag {"expireOn":"2019-08-29"}
