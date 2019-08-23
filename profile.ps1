@@ -19,3 +19,8 @@ if ($env:MSI_SECRET -and (Get-Module -ListAvailable Az.Accounts)) {
 # Enable-AzureRmAlias
 
 # You can also define functions or aliases that can be referenced in any of your PowerShell functions.
+
+if (-not (Get-Command -Module 'Az.ResourceGraph' -CommandType 'Cmdlet'))
+{
+    Install-Module -Name Az.ResourceGraph
+}
