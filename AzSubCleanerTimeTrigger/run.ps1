@@ -12,6 +12,15 @@ if ($Timer.IsPastDue) {
 # Write an information log with the current time.
 Write-Host "PowerShell timer trigger function ran! TIME: $currentUTCtime"
 
+if (-not (Get-Command -Module 'Az.ResourceGraph' -CommandType 'Cmdlet'))
+{
+    Write-Output "(In Func) Module 'Az.ResourceGraph' not found, installing right now..."
+    Install-Module -Name Az.ResourceGraph
+}
+else {
+    Write-Output "(In Func) You are all set."
+}
+
 $expResources= Search-AzGraph -Query 'where todatetime(tags.expireOn) < now() | project id'
 
 foreach ($r in $expResources) {
