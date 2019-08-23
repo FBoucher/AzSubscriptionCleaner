@@ -15,7 +15,7 @@ Write-Host "PowerShell timer trigger function ran! TIME: $currentUTCtime"
 if (-not (Get-Command -Module 'Az.ResourceGraph' -CommandType 'Cmdlet'))
 {
     Write-Output "(In Func) Module 'Az.ResourceGraph' not found, installing right now..."
-    Install-Module -Name Az.ResourceGraph
+    Install-Module -Name Az.ResourceGraph -Scope CurrentUser -Force
 }
 else {
     Write-Output "(In Func) You are all set."
