@@ -1,6 +1,8 @@
 # Az Subcription Cleaner
 
-!["Azure Subcription Cleaner"](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png)
+![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png)
+
+> ⚠ Notes ⚠: This project is in progress and not 100% functional. See section [Current Status](#current-status) for more details.
 
 The Simple way to keep your Azure Subscription "clean". This Azure Function will Automatically delete all "expired" resources inside your Azure Subscription, and nothing else.
 
@@ -21,9 +23,9 @@ Once all the "expired" resources are deleted. It will search for empty resource 
 
 ## Manage Tags
 
-You can add tage with the portal.
+You can add tag with the portal.
 
-(instruction is coming)
+(*instruction is coming*)
 
 ### PowerShell 
 
@@ -37,10 +39,47 @@ It's also possible using Azure CLI.
 
     az tag list
 
-(instruction is coming)
+(*instruction is coming*)
 
 ## Azure Subscription
 
 If you don't own an Azure subscription already, you can create your **free** account today. It comes with 200$ credit, so you can experience almost everything without spending a dime.
 
 [Create your free Azure account today](https://azure.microsoft.com/en-us/free?WT.mc_id=azsubcleaner-github-frbouche)
+
+
+## Current Status
+
+Right now the solution is partially working. Here what works and not.
+
+### Working 👍
+
+- The PowerShell command are doing what there a suppose to do. If you have a open session and that you have the module `Az.ResourceGraph` you could run locally the command and it will clean your subscription.
+
+    ```powershell
+    $expResources= Search-AzGraph -Query 'where todatetime(tags.expireOn) < now() | project id'
+
+    foreach ($r in $expResources) {
+        Write-Host "Expired Resource ID=" + $r.id
+        Remove-AzResource -ResourceId $r.id -Force -WhatIf
+    }
+
+    $rgs = Get-AzResourceGroup;
+    
+    foreach($resourceGroup in $rgs){
+        $name=  $resourceGroup.ResourceGroupName;
+        $count = (Get-AzResource | Where-Object{ $_.ResourceGroupName -match $name }).Count;
+        if($count -eq 0){
+            Write-Host "==> $name is empty. Deleting it...";
+            Remove-AzResourceGroup -Name $name -Force -WhatIf
+        }
+    }
+    ```
+
+- The Azure Resource Manager (ARM) template is valid and functional
+- The Deploy to Azure Button, will deploy everything in your Azure Subscription
+
+### Known Issues
+
+- The Azure Function is failing:
+    - `ERROR: Run Connect-AzAccount to login` It needs a open session (in progress)
