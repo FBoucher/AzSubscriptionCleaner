@@ -10,17 +10,17 @@ A Resource is "expired" when it has a tag `expireOn` older then the current date
 
 ## How to deploy
 
-There is two version of this tool. One levraging the Azure Function the second using Azure Automation. Both are valide options it just depends on your preferences.
+There is two version of this tool. One leveraging the Azure Function the second using Azure Automation. Both are valid options it just depends on your preferences.
 
 ### The Version: Azure Function
 
-Created using the PowerShell Azure Function all details is available in the [azure-function folder](azure-function/ReadMe.md)
+Created using the PowerShell Azure Function all details is available in the [azure-function folder](azure-function/README.md)
 
 ### The Version: Azure Automation
 
 The Azure Automation Runbook will execute a PowerShell Script base on a pre-define schedule.
 
-All details are available in the [azure-automation folder](azure-automation/ReadMe.md)
+All details are available in the [azure-automation folder](azure-automation/README.md)
 
 To deploy all the resources in your Azure subscription, just click on the **Deploy to Azure** button.
 
