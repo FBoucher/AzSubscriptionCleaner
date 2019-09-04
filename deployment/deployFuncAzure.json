@@ -30,6 +30,9 @@
             "type": "Microsoft.Web/sites",
             "name": "[variables('funcAppName')]",
             "location": "[resourceGroup().location]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "kind": "functionapp",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms',variables('serverFarmName'))]",

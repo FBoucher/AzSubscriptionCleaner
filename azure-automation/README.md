@@ -4,13 +4,11 @@
 
 ![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png)
 
-> ⚠ Notes ⚠: This project is in progress and not 100% functional. See section [Current Status](#current-status) for more details.
-
 The Simple way to keep your Azure Subscription "clean". This Azure Runbook will automatically delete all "expired" resources inside your Azure Subscription, and nothing else.
 
 A Resource is "expired" when it has a tag `expireOn` older then the current date.
 
-## How to deploy
+# How to deploy
 
 To deploy all the resources in your Azure subscription, just click on the **Deploy to Azure** button.
 
@@ -18,7 +16,7 @@ To deploy all the resources in your Azure subscription, just click on the **Depl
 
 This will open the Azure Portal in a deployment form. You will need to give it a name and select the location where you would like to deploy it. 
 
-## Create it yourself in 5 minutes
+# Create it yourself in 5 minutes
 
 From the Azure Portal
 

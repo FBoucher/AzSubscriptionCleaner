@@ -3,7 +3,7 @@
 az group create -n cloud5minsAz -l eastus
 
 # validate command
-az group deployment validate -g cloud5minsAz --template-file "deployment/deployAzure.json" --verbose 
+az group deployment validate -g cloud5minsAz --template-file "deployment/deployFuncAzure.json" --verbose 
 
 # validate with Parameter file
 az group deployment validate -g cloud5minsAz --template-file "deployment/deployAzure.json" --parameters "deployment/deployAzure.parameters.json"  --verbose 
