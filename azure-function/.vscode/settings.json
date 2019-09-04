@@ -2,5 +2,20 @@
     "azureFunctions.deploySubpath": ".",
     "azureFunctions.projectLanguage": "PowerShell",
     "azureFunctions.projectRuntime": "~2",
-    "debug.internalConsoleOptions": "neverOpen"
+    "debug.internalConsoleOptions": "neverOpen",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#f95f13",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#06f956",
+        "activityBarBadge.foreground": "#15202b",
+        "titleBar.activeBackground": "#d44a05",
+        "titleBar.inactiveBackground": "#d44a0599",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "statusBar.background": "#d44a05",
+        "statusBarItem.hoverBackground": "#f95f13",
+        "statusBar.foreground": "#e7e7e7"
+    },
+    "peacock.color": "#d44a05"
 }
