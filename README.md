@@ -69,3 +69,7 @@ If you don't own an Azure subscription already, you can create your **free** acc
 
 There is a [Glo board](https://app.gitkraken.com/glo/board/XWvcyQtDJAAPG-Qo) to see what's in progress and on the road map. Feel free to great issues to request new feature or if you find bugs.
 
+
+## Video - How to Delete All Expired Resources Automatically
+
+<a href="https://www.youtube.com/watch?v=7WomkaZWh5w" target="blank"><img src="https://thepracticaldev.s3.amazonaws.com/i/fw03128nwdr5qc4yfwkm.png"/></a>
