@@ -2,7 +2,7 @@
 
 ## Version: Azure Automation
 
-![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png)
+![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png?raw=true)
 
 The Simple way to keep your Azure Subscription "clean". This Azure Runbook will automatically delete all "expired" resources inside your Azure Subscription, and nothing else.
 
@@ -21,10 +21,14 @@ This will open the Azure Portal in a deployment form. You will need to give it a
 From the Azure Portal
 
 1. Create a new Automation
-    - make sure to select *yes* at the create an Azure Run account
+    - Make sure to select *yes* at the create an Azure Run account
 1. Create a new Runbook, the type should be PowerShell.
 1. Copy-paste the content of the script [SubCleaner.ps1](SubCleaner.ps1)
     . Remove the -WhatIf at line 29 and 38, to really delete the resources. 
 1. Save and Publish
 1. Add a schedule.
 
+
+## Video Tutorial - How to Delete All Expired Resources Automatically
+
+<a href="https://www.youtube.com/watch?v=7WomkaZWh5w" target="blank"><img src="https://thepracticaldev.s3.amazonaws.com/i/fw03128nwdr5qc4yfwkm.png"/></a>
