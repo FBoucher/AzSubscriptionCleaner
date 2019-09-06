@@ -44,21 +44,37 @@ To be able to delete some resources you need to tag them with a tag `expireOn` a
 
 To add a tag from the portal select any resource. Then from the left panel select the ** Tags** option and add a tag with the name `expireOn` and the desired date.
 
-![add-tag-portal](medias/add-tag-portal.png)
+![add-tag-portal](medias/add-tag-portal.png?raw=true)
 
 ## PowerShell 
 
-PowerShell Command to add a ExpireOn Tag
+The following PowerShell command will add an `ExpireOn` tag with the value "2019-08-29" to the resource named *demoWebsite* in the resource group *summerDemo*.
 
-    Set-AzResource -ResourceId (Get-AzResource -ResourceGroupName todelete -Name Auto-test).ResourceId -Tag @{expireOn="2019-08-29"}
+```powershell
+    Set-AzResource -ResourceId (Get-AzResource -ResourceGroupName summerDemo -Name demoWebsite).ResourceId -Tag @{expireOn="2019-08-29"}
+```
+
 
 ## Azure CLI
 
 It's also possible using Azure CLI. 
 
-    az tag list
+To add a tag `expireOn' with a value "2019-08-29" to the website *demoWebsite* IF the resource doesn't have existing tags, use:
 
-(*instruction is coming*)
+    az resource tag --tags expireOn=2019-08-29 -g summerDemo -n demoWebsite --resource-type "Microsoft.Web/sites"
+
+> This will delete any existing tags on that resource. If the resource has already tags use instead the following code.
+
+To add a tag `expireOn' with a value "2019-08-29" to a website *demoWebsite* that already has tags, retrieve the existing tags, reformat that value, and reapply the existing and new tags:
+
+    jsonrtag=$(az resource show -g summerDemo -n demoWebsite --resource-type "Microsoft.Web/sites" --query tags)
+
+    rt=$(echo $jsonrtag | tr -d '"{},\n' | sed 's/: /=/g')
+    
+    az resource tag --tags $rt expireOn=2019-08-29 -g summerDemo -n demoWebsite --resource-type "Microsoft.Web/sites"
+
+> To Learn more how to manage tags using PowerShell and Azure CLI visit **[bit.ly/azureTags](http://bit.ly/azureTags)**
+
 
 # Azure Subscription
 
