@@ -13,3 +13,21 @@ az group deployment create -n cloud5mins -g cloud5minsAz --template-file "deploy
 
 
 PS C:\> Set-AzResource -ResourceGroupName todelete -Name Auto-test  -Tag {"expireOn":"2019-08-29"}
+
+
+
+
+# Manage Tags
+
+az resource show -n blazordemo -g todelete --resource-type "Microsoft.Storage/storageAccounts" --query tags
+
+
+az resource tag --tags expireOn=2019-08-29 -g todelete -n blazordemo --resource-type "Microsoft.Storage/storageAccounts"
+
+
+
+jsonrtag=$(az resource show -g todelete -n blazordemo --resource-type "Microsoft.Storage/storageAccounts" --query tags)
+
+rt=$(echo $jsonrtag | tr -d '"{} ' | sed 's/: /=/g;s/,/ /g' | sed ':a;N;$!ba;s/\n//g'  | sed 's/  */ /g')
+
+az resource tag --tags $rt expireOn=2019-08-29 -g todelete -n blazordemo --resource-type "Microsoft.Storage/storageAccounts"

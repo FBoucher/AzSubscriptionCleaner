@@ -48,11 +48,40 @@ To add a tag from the portal select any resource. Then from the left panel selec
 
 ## PowerShell 
 
-The following PowerShell command will add an `ExpireOn` tag with the value "2019-08-29" to the resource named *demoWebsite* in the resource group *summerDemo*.
+The following PowerShell command will add an `expireOn` tag with the value "2019-08-29" to the resource named *demoWebsite* in the resource group *summerDemo*.
 
 ```powershell
     Set-AzResource -ResourceId (Get-AzResource -ResourceGroupName summerDemo -Name demoWebsite).ResourceId -Tag @{expireOn="2019-08-29"}
 ```
+
+You could also add tags to a resource group and all its resources. This script will add the tag `expireOn` with the value "2019-08-29"
+add populate all resources to this resource group with the same tags.
+
+```powershell
+Set-AzResourceGroup -ResourceId (Get-AzResourceGroup -Name "StreamCleaner").ResourceId -Tag @{expireOn="2019-08-29"}
+
+$group = Get-AzResourceGroup "StreamCleaner"
+if ($null -ne $group.Tags) {
+    $resources = Get-AzResource -ResourceGroupName $group.ResourceGroupName
+    foreach ($r in $resources) {
+        $resourcetags = (Get-AzResource -ResourceId $r.ResourceId).Tags
+        if ($resourcetags) {
+            foreach ($key in $group.Tags.Keys) {
+                if (-not($resourcetags.ContainsKey($key))) {
+                    $resourcetags.Add($key, $group.Tags.$key)
+                }
+            }
+            Set-AzResource -Tag $resourcetags -ResourceId $r.ResourceId -Force
+        }
+        else
+        {
+            Set-AzResource -Tag $group.Tags -ResourceId $r.ResourceId -Force
+        }
+    }
+}
+```
+
+
 
 
 ## Azure CLI
