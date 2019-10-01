@@ -27,6 +27,11 @@ From the option at the left select *Access control (IAM)*. Click *Add* and selec
 Select the *Select* blue button, and your are done!
 
 
+## Video Tutorial - The cleaning Power of Azure Function at your service
+
+<a href="https://www.youtube.com/watch?v=kbM8zwvUpkg" target="blank"><img src="https://thepracticaldev.s3.amazonaws.com/i/qu41aa3tqgjjxafby6jf.png"/></a>
+
+Or Read the blog post [Use Azure Function to Clean-up your Mess, Automatically](https://dev.to/azure/use-azure-function-to-clean-up-your-mess-automatically-3h29)
 
 [selectSubscription]: ../medias/selectSubscription.png 
 [AssignRole]: ../medias/AssignRole.png 
