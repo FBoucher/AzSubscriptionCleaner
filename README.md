@@ -15,12 +15,12 @@ A Resource is "expired" when it has a tag `expireOn` older then the current date
 There is two version of this tool. One leveraging the Azure Function the second using Azure Automation. Both are valid options it just depends on your preferences.
 
 
-## The Version: Azure Function
+## Solution 1: with **Azure Function**
 
 Created using the PowerShell Azure Function all details is available in the [azure-function folder](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-function/README.md)
 
 
-## The Version: Azure Automation
+## Solution 2: with **Azure Automation**
 
 The Azure Automation Runbook will execute a PowerShell Script base on a pre-define schedule.
 
@@ -46,7 +46,7 @@ To add a tag from the portal select any resource. Then from the left panel selec
 
 ![add-tag-portal](medias/add-tag-portal.png?raw=true)
 
-## PowerShell 
+## With PowerShell 
 
 The following PowerShell command will add an `expireOn` tag with the value "2019-08-29" to the resource named *demoWebsite* in the resource group *summerDemo*.
 
@@ -84,7 +84,7 @@ if ($null -ne $group.Tags) {
 
 
 
-## Azure CLI
+## With Azure CLI
 
 It's also possible using Azure CLI. 
 
@@ -103,6 +103,7 @@ To add a tag `expireOn' with a value "2019-08-29" to a website *demoWebsite* tha
     az resource tag --tags $rt expireOn=2019-08-29 -g summerDemo -n demoWebsite --resource-type "Microsoft.Web/sites"
 
 > To Learn more how to manage tags using PowerShell and Azure CLI visit **[bit.ly/azureTags](http://bit.ly/azureTags)**
+
 
 
 # Azure Subscription
