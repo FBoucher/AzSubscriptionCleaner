@@ -26,8 +26,12 @@ From the Azure Portal
 1. Copy-paste the content of the script [SubCleaner.ps1](SubCleaner.ps1)
     . Remove the -WhatIf at line 29 and 38, to really delete the resources. 
 1. Save and Publish
+1. Import the required modules in the **Modules** options
+    . Az.Accounts
+    . Az.ResourceGraph  
 1. Add a schedule.
 
+To get a more detailed tutorial on how to create the Azure Automation you can refer to the blog post on Dev.to: [Keep your Azure Subscription Clean Automatically](https://dev.to/azure/keep-your-azure-subscription-clean-automatically-mmi)
 
 ## Video Tutorial - How to Delete All Expired Resources Automatically
 
