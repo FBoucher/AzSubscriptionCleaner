@@ -102,6 +102,10 @@ To add a tag `expireOn' with a value "2019-08-29" to a website *demoWebsite* tha
     
     az resource tag --tags $rt expireOn=2019-08-29 -g summerDemo -n demoWebsite --resource-type "Microsoft.Web/sites"
 
+To delete a specific tag value e.g. tag *expireOn=2019-08-29* on the website *demoWebsite* , use:
+
+    az tag remove-valu --name expireOn --value 2019-08-29 [--subscription <Subscription ID> ]
+
 > To Learn more how to manage tags using PowerShell and Azure CLI visit **[bit.ly/azureTags](http://bit.ly/azureTags)**
 
 
