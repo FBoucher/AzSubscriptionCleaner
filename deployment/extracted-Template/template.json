@@ -1,0 +1,966 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "certificates_AzureClassicRunAsCertificate_base64Value": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "certificates_AzureRunAsCertificate_base64Value": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "vaults_FrankVault_name": {
+            "defaultValue": "FrankVault",
+            "type": "String"
+        },
+        "automationAccounts_FranksTools_name": {
+            "defaultValue": "FranksTools",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Automation/automationAccounts",
+            "apiVersion": "2015-10-31",
+            "name": "[parameters('automationAccounts_FranksTools_name')]",
+            "location": "eastus2",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2016-10-01",
+            "name": "[parameters('vaults_FrankVault_name')]",
+            "location": "eastus2",
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "Standard"
+                },
+                "tenantId": "206bad4c-d071-4c91-9181-ef7047e6590b",
+                "accessPolicies": [
+                    {
+                        "tenantId": "206bad4c-d071-4c91-9181-ef7047e6590b",
+                        "objectId": "dba63dbc-c392-446d-9ad4-13a436b76982",
+                        "permissions": {
+                            "keys": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "secrets": [
+                                "Get",
+                                "List",
+                                "Set",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "certificates": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore",
+                                "ManageContacts",
+                                "ManageIssuers",
+                                "GetIssuers",
+                                "ListIssuers",
+                                "SetIssuers",
+                                "DeleteIssuers"
+                            ]
+                        }
+                    }
+                ],
+                "enabledForDeployment": false,
+                "enabledForDiskEncryption": false,
+                "enabledForTemplateDeployment": false
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/certificates",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureClassicRunAsCertificate')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "description": "This certificate is used to authenticate with Azure so that you can manage Azure classic resources from runbooks. For details on this certificate, or to manage it, go to this account’s Settings.  For example usage, see the tutorial runbook in this account.",
+                "isExportable": false,
+                "thumbprint": "5CAF131B248B1647BED9BD12265AF190023D6207",
+                "base64Value": "[parameters('certificates_AzureClassicRunAsCertificate_base64Value')]"
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/certificates",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRunAsCertificate')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
+                "isExportable": true,
+                "thumbprint": "B3B3FDD18B5CEC71CBB3878CB1D178E1639F4A9B",
+                "base64Value": "[parameters('certificates_AzureRunAsCertificate_base64Value')]"
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/connections",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureClassicRunAsConnection')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "connectionType": {
+                    "name": "AzureClassicCertificate"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/connections",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRunAsConnection')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "connectionType": {
+                    "name": "AzureServicePrincipal"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Azure')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "AutomationCertificateName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionID": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureClassicCertificate')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "SubscriptionName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "CertificateAssetName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureServicePrincipal')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "ApplicationId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "TenantId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "CertificateThumbprint": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/74ba6479-71e5-46b8-8229-e2f70c33689c')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637031845800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637032709800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637033573800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637034437800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637035301800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637036165800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637037029800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637037893800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637038757800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637039621800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637040485800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637041349800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637042213800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637043077800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637043941800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637044805800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637045669800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637046533800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637047397800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637048261800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637049125800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637049989800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637050853800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637051717800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637052581800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637053445800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637054309800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637055173800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637056037800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "apiVersion": "2017-05-15-preview",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SCH_da074405-736b-4244-8a2f-7a3610c059c9_18d2e7d5-0c3b-4000-a3c0-204139d47e7c_637056901800000000')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/jobSchedules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/da074405-736b-4244-8a2f-7a3610c059c9')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbook": {
+                    "name": "SubscriptionCleaner"
+                },
+                "schedule": {
+                    "name": "Every morning"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AuditPolicyDsc')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Az.Accounts')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Az.ResourceGraph')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Azure')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Azure.Storage')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Automation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Compute')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Profile')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Resources')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Sql')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/AzureRM.Storage')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/ComputerManagementDsc')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/GPRegistryPolicyParser')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.PowerShell.Core')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.PowerShell.Diagnostics')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.PowerShell.Management')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.PowerShell.Security')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.PowerShell.Utility')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Microsoft.WSMan.Management')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Orchestrator.AssetManagement.Cmdlets')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/PSDscResources')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SecurityPolicyDsc')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/StateConfigCompositeResources')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/xDSCDomainjoin')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/xPowerShellExecutionPolicy')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/xRemoteDesktopAdmin')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "contentLink": {}
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/runbooks",
+            "apiVersion": "2018-06-30",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/SubscriptionCleaner')]",
+            "location": "eastus2",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "runbookType": "PowerShell",
+                "logVerbose": false,
+                "logProgress": false,
+                "logActivityTrace": 0
+            }
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "apiVersion": "2015-10-31",
+            "name": "[concat(parameters('automationAccounts_FranksTools_name'), '/Every morning')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_FranksTools_name'))]"
+            ],
+            "properties": {
+                "startTime": "2019-09-03T05:03:00-04:00",
+                "expiryTime": "9999-12-31T18:59:00-05:00",
+                "interval": 1,
+                "frequency": "Day",
+                "timeZone": "America/Toronto"
+            }
+        }
+    ]
+}

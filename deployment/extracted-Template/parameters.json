@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "certificates_AzureClassicRunAsCertificate_base64Value": {
+            "value": null
+        },
+        "certificates_AzureRunAsCertificate_base64Value": {
+            "value": null
+        },
+        "vaults_FrankVault_name": {
+            "value": null
+        },
+        "automationAccounts_FranksTools_name": {
+            "value": null
+        }
+    }
+}
