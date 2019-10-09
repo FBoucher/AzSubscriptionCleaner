@@ -18,7 +18,7 @@ catch {
         $ErrorMessage = "... Connection $connectionName not found."
         throw $ErrorMessage
     } else{
-        Write-Error -Message $_.Exception
+        write-host -Message $_.Exception
         throw $_.Exception
     }
 }
@@ -26,7 +26,7 @@ catch {
 $expResources= Search-AzGraph -Query 'where todatetime(tags.expireOn) < now() | project id'
 
 foreach ($r in $expResources) {
-    Write-Log "Deleting Resource with ID: $r.id"
+    write-host "Deleting Resource with ID: $r.id"
     Remove-AzResource -ResourceId $r.id -Force -WhatIf #REMOVE THE WHATIF TO REALLY DELETE RESOURCES
 }
 
@@ -36,7 +36,7 @@ foreach($resourceGroup in $rgs){
     $name=  $resourceGroup.ResourceGroupName;
     $count = (Get-AzResource | Where-Object{ $_.ResourceGroupName -match $name }).Count;
     if($count -eq 0){
-        Write-Log "... Deleting Resource Group: $name"
+        write-host "... Deleting Resource Group: $name"
         Remove-AzResourceGroup -Name $name -Force -WhatIf #REMOVE THE WHATIF TO REALLY DELETE RESOURCES
     }
 }

@@ -27,8 +27,11 @@ From the Azure Portal
     . Remove the -WhatIf at line 29 and 38, to really delete the resources. 
 1. Save and Publish
 1. Import the required modules in the **Modules** options
+
     . Az.Accounts
     . Az.ResourceGraph  
+    . Az.Resources
+
 1. Add a schedule.
 
 To get a more detailed tutorial on how to create the Azure Automation you can refer to the blog post on Dev.to: [Keep your Azure Subscription Clean Automatically](https://dev.to/azure/keep-your-azure-subscription-clean-automatically-mmi)
