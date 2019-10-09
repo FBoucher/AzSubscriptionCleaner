@@ -31,3 +31,12 @@ jsonrtag=$(az resource show -g todelete -n blazordemo --resource-type "Microsoft
 rt=$(echo $jsonrtag | tr -d '"{} ' | sed 's/: /=/g;s/,/ /g' | sed ':a;N;$!ba;s/\n//g'  | sed 's/  */ /g')
 
 az resource tag --tags $rt expireOn=2019-08-29 -g todelete -n blazordemo --resource-type "Microsoft.Storage/storageAccounts"
+
+
+#== Testing code from PR
+
+for n in $(az tag list --subscription 11111111111111111111111111111111 | fgrep -w *owner* | fgrep -w *Frank*)
+do
+--az tag remove-value --name owner --value Frank
+"hello"
+done
