@@ -28,9 +28,9 @@ From the Azure Portal
 1. Save and Publish
 1. Import the required modules in the **Modules** options
 
-    . Az.Accounts
-    . Az.ResourceGraph  
-    . Az.Resources
+    - Az.Accounts
+    - Az.ResourceGraph
+    - Az.Resources
 
 1. Add a schedule.
 
