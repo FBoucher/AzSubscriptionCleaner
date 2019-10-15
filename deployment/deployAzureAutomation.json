@@ -28,7 +28,9 @@
                 "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]"
             ],
             "properties": {
-                "contentLink": {}
+                "contentLink": {
+                    "uri": "https://github.com/FBoucher/AzSubscriptionCleaner/raw/arm-template-automation/deployment/modules/az.accounts.1.6.3.nupkg"
+                }
             }
         },
         {
@@ -39,7 +41,9 @@
                 "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]"
             ],
             "properties": {
-                "contentLink": {}
+                "contentLink": {
+                    "uri": "https://github.com/FBoucher/AzSubscriptionCleaner/blob/arm-template-automation/deployment/modules/az.resourcegraph.0.7.6.nupkg"
+                }
             }
         },
         {
@@ -50,7 +54,9 @@
                 "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]"
             ],
             "properties": {
-                "contentLink": {}
+                "contentLink": {
+                    "uri": "https://github.com/FBoucher/AzSubscriptionCleaner/blob/arm-template-automation/deployment/modules/az.resources.4.0.1-preview.nupkg"
+                }
             }
         },
         {

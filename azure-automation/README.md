@@ -22,7 +22,9 @@ From the Azure Portal
 
 1. Create a new Automation
     - **Make sure to select *yes* at the create an Azure Run account**
+
     !["Create Azure Automation"](../medias/create-automation.png)
+    
 1. Create a new Runbook, the type should be PowerShell.
 1. Copy-paste the content of the script [SubCleaner.ps1](SubCleaner.ps1)
     . Remove the -WhatIf at line 29 and 38, to really delete the resources. 
