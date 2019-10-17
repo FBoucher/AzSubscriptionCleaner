@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "automationAccountsName": {
-            "defaultValue": "CleaningTools",
+            "defaultValue": "CleaningTools2",
             "type": "String"
         }
     },
@@ -34,11 +34,12 @@
             }
         },
         {
-            "type": "Microsoft.Automation/automationAccounts/modules",
+            "type": "Microsoft.Automation/AutomationAccounts/Modules",
             "apiVersion": "2015-10-31",
             "name": "[concat(parameters('automationAccountsName'), '/Az.ResourceGraph')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]"
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]",
+                <<ADD_DEPENDENCY_TO_MODULE_Az.Accounts_HERE
             ],
             "properties": {
                 "contentLink": {
@@ -51,7 +52,8 @@
             "apiVersion": "2015-10-31",
             "name": "[concat(parameters('automationAccountsName'), '/Az.Resources')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]"
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountsName'))]",
+                "Az.ResourceGraph"
             ],
             "properties": {
                 "contentLink": {
