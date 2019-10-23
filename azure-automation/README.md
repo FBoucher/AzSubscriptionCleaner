@@ -10,29 +10,28 @@ A Resource is "expired" when it has a tag `expireOn` older then the current date
 
 # How to deploy
 
-To deploy all the resources in your Azure subscription, just click on the **Deploy to Azure** button.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FFBoucher%2FAzSubcriptionCleaner%2Fmaster%2Fdeployment%2FdeployFuncAzure.json?WT.mc_id=azsubcleaner-github-frbouche" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a> (NOT YET FUNCTIONAL)
-
-This will open the Azure Portal in a deployment form. You will need to give it a name and select the location where you would like to deploy it. 
+There is no automatic deployment yet. We start working on an ARM template but this part is not done. Feel free to contribute and send a pull request (PR).
 
 # Create it yourself in 5 minutes
 
-From the Azure Portal
+- From the Azure Portal (azure.portal.com), click the "+" sign in the top left of the screen,  and search for *automation*. Click Azure Automation to create a new one.
 
-1. Create a new Automation
-    - Make sure to select *yes* at the create an Azure Run account
-1. Create a new Runbook, the type should be PowerShell.
-1. Copy-paste the content of the script [SubCleaner.ps1](SubCleaner.ps1)
-    . Remove the -WhatIf at line 29 and 38, to really delete the resources. 
-1. Save and Publish
-1. Import the required modules in the **Modules** options
+    > Make sure to select *yes* at the create an Azure Run account
 
-    . Az.Accounts
-    . Az.ResourceGraph  
-    . Az.Resources
+- From the left panel click on **Runbook**, the type should be PowerShell.
 
-1. Add a schedule.
+- Copy-paste the content of the script [SubCleaner.ps1](SubCleaner.ps1)
+
+    > Remove the -WhatIf at line 29 and 38, to really delete the resources.
+
+- Save and **Publish**
+
+- From the left panel click on **Modules**. You will need to import those three module (the order is important because of dependency)
+    1. Az.Accounts
+    2. Az.ResourceGraph  
+    3. Az.Resources
+
+- Create a schedules, to have the script executed every morning. Click on the **Schedules** from the left panel. Select the frequency you like, and save it.
 
 To get a more detailed tutorial on how to create the Azure Automation you can refer to the blog post on Dev.to: [Keep your Azure Subscription Clean Automatically](https://dev.to/azure/keep-your-azure-subscription-clean-automatically-mmi)
 

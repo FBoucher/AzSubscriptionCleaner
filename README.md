@@ -10,24 +10,27 @@ The Simple way to keep your Azure Subscription "clean". This run on a schedule a
 
 A Resource is "expired" when it has a tag `expireOn` older then the current date.
 
+---
+
 # How to deploy
 
 There is two version of this tool. One leveraging the Azure Function the second using Azure Automation. Both are valid options it just depends on your preferences.
 
 
-## Solution 1: with **Azure Function**
+## Solution 1: **[with Azure Function](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-function/README.md)**
 
-Created using the PowerShell Azure Function all details is available in the [azure-function folder](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-function/README.md)
+Created using the PowerShell Azure Function all details is available in the **[azure-function folder](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-function/README.md)**
 
 
-## Solution 2: with **Azure Automation**
+## Solution 2: **[with Azure Automation](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-automation/README.md)**
 
 The Azure Automation Runbook will execute a PowerShell Script base on a pre-define schedule.
 
-All details are available in the [azure-automation folder](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-automation/README.md)
+All details are available in the **[azure-automation folder](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/azure-automation/README.md)**
 
 To deploy all the resources in your Azure subscription, just click on the **Deploy to Azure** button.
 
+--- 
 
 # How Does it works
 
@@ -35,6 +38,7 @@ By Default, the tool will get triggered every morning at 5am and search for any 
 
 Once all the "expired" resources are deleted. It will search for empty Resource Group and delete them too.
 
+--- 
 
 # Manage Tags
 
@@ -104,7 +108,7 @@ To add a tag `expireOn' with a value "2019-08-29" to a website *demoWebsite* tha
 
 > To Learn more how to manage tags using PowerShell and Azure CLI visit **[bit.ly/azureTags](http://bit.ly/azureTags)**
 
-
+---
 
 # Azure Subscription
 
@@ -112,6 +116,7 @@ If you don't own an Azure subscription already, you can create your **free** acc
 
 [Create your free Azure account today](https://azure.microsoft.com/en-us/free?WT.mc_id=azsubcleaner-github-frbouche)
 
+---
 
 # Current Status, Future Features
 
