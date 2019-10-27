@@ -130,6 +130,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-
+<table>
+  <tr>
+    <td align="center"><a href="http://cloud5mins.com"><img src="https://avatars3.githubusercontent.com/u/2404846?v=4" width="100px;" alt="Frank Boucher"/><br /><sub><b>Frank Boucher</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Code">💻</a> <a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Documentation">📖</a></td>
+  </tr>
+</table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
