@@ -1,10 +1,13 @@
 {
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 100,
   "contributorsPerLine": 7,
-  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
-  "contributorTemplate": "<%= avatarBlock %><br /><%= contributions %>"
-  },
   "skipCi": "true",
+  "projectName": "AzSubscriptionCleaner",
+  "projectOwner": "FBoucher",
+  "repoType": "github",
+  "repoHost": "https://github.com",
   "contributors": []
 }
