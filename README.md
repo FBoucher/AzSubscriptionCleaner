@@ -86,8 +86,6 @@ if ($null -ne $group.Tags) {
 ```
 
 
-
-
 ## With Azure CLI
 
 It's also possible using Azure CLI. 
@@ -122,8 +120,9 @@ If you don't own an Azure subscription already, you can create your **free** acc
 
 There is a [Glo board](https://app.gitkraken.com/glo/board/XWvcyQtDJAAPG-Qo) to see what's in progress and on the road map. Feel free to great issues to request new feature or if you find bugs.
 
+---
 
-## Contributing
+# Contributing
 
 Want to contribute? Check out our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing](CONTRIBUTING.md) docs. This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.  Contributions of any kind welcome!
 
