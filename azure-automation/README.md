@@ -2,7 +2,7 @@
 
 ## Version: Azure Automation
 
-![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/master/medias/AzSubscriptionCleaner.png?raw=true)
+![Azure Subscription Cleaner](https://github.com/FBoucher/AzSubcriptionCleaner/blob/main/medias/AzSubscriptionCleaner.png?raw=true)
 
 The Simple way to keep your Azure Subscription "clean". This Azure Runbook will automatically delete all "expired" resources inside your Azure Subscription, and nothing else.
 
