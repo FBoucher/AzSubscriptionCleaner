@@ -112,7 +112,7 @@ To add a tag `expireOn' with a value "2019-08-29" to a website *demoWebsite* tha
 
 If you don't own an Azure subscription already, you can create your **free** account today. It comes with 200$ credit, so you can experience almost everything without spending a dime.
 
-[Create your free Azure account today](https://azure.microsoft.com/en-us/free?WT.mc_id=azsubcleaner-github-frbouche)
+[Create your free Azure account today](https://azure.microsoft.com/free?WT.mc_id=dotnet-0000-frbouche)
 
 ---
 
