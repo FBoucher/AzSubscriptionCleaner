@@ -4,7 +4,7 @@
   ],
   "imageSize": 100,
   "contributorsPerLine": 7,
-  "skipCi": "true",
+  "skipCi": true,
   "projectName": "AzSubscriptionCleaner",
   "projectOwner": "FBoucher",
   "repoType": "github",
@@ -19,7 +19,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "ChrisIIx",
+      "name": "Christopher Sl.",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/47574928?v=4",
+      "profile": "https://github.com/ChrisIIx",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ]
 }
-
