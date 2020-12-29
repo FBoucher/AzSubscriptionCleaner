@@ -14,7 +14,7 @@ $rgs = Get-AzResourceGroup;
  
 foreach($resourceGroup in $rgs){
     $name=  $resourceGroup.ResourceGroupName;
-    $count = (Get-AzResource | Where-Object{ $_.ResourceGroupName -match $name }).Count;
+    $count = (Get-AzResource -ResourceGroupName $name).Count;
     if($count -eq 0){
         Write-Host "==> $name is empty. Deleting it...";
         Remove-AzResourceGroup -Name $name -Force # -WhatIf #Add/Remove WhatIf when in Test/Production
