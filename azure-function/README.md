@@ -14,26 +14,10 @@ To deploy all the resources in your Azure subscription, just click on the **Depl
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FFBoucher%2FAzSubcriptionCleaner%2Fmain%2Fdeployment%2FdeployFuncAzure.json?WT.mc_id=azsubcleaner-github-frbouche" target="_blank"><img src="https://azuredeploy.net/deploybutton.png"/></a>
 
-This will open the Azure Portal in a deployment form. You will need to give it a name and select the location where you would like to deploy it. 
-
-Once the deployment is completed, from the Azure Portal select the subcription. First from the left menu select *All Services* and type "Subscription" in the search bar. Click on **Subscriptions** to see the list of available subscriptions.  Click on the subscription where you just deployed AzSubscriptionCleaner.
-
-!["Select Subscription"][selectSubscription]
-
-From the option at the left select *Access control (IAM)*. Click *Add* and select *Add role assignment*. From the new panel on the left, Select *Contributor* as Role and enter the name of your resource (ex: azsubcleaner) in the *Select* textbox.
-
-!["Assign Role"][AssignRole]
-
-Select the *Select* blue button, and your are done!
-
+This will open the Azure Portal in a deployment form. You will need to give it a name and select the location where you would like to deploy it.
 
 ## Video Tutorial - The cleaning Power of Azure Function at your service
 
 <a href="https://www.youtube.com/watch?v=kbM8zwvUpkg" target="blank"><img src="https://thepracticaldev.s3.amazonaws.com/i/qu41aa3tqgjjxafby6jf.png"/></a>
 
 Or Read the blog post [Use Azure Function to Clean-up your Mess, Automatically](https://dev.to/azure/use-azure-function-to-clean-up-your-mess-automatically-3h29)
-
-[selectSubscription]: ../medias/selectSubscription.png 
-[AssignRole]: ../medias/AssignRole.png 
-
-
