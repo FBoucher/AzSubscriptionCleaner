@@ -1,18 +1,17 @@
 
 
-az group create -n cloud5minsAz -l eastus
+# Validate Using NEW deployment command
 
-# validate command
-az group deployment validate -g cloud5minsAz --template-file "deployment/deployFuncAzure.json" --verbose 
+az deployment sub validate --name bmcStream --location eastus --template-file "deployment/deployFuncAzure.json"
 
-# validate with Parameter file
-az group deployment validate -g cloud5minsAz --template-file "deployment/deployAzure.json" --parameters "deployment/deployAzure.parameters.json"  --verbose 
+az deployment sub create --name bmcStream --location eastus --template-file "deployment/deployFuncAzure.json"
 
-# deploy it
-az group deployment create -n cloud5mins -g cloud5minsAz --template-file "deployment/deployAzure.json" --parameters "deployment/deployAzure.parameters.json"  --verbose 
 
+
+#Powershell
 
 PS C:\> Set-AzResource -ResourceGroupName todelete -Name Auto-test  -Tag {"expireOn":"2019-08-29"}
+
 
 
 
