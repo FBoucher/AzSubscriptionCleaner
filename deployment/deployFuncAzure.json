@@ -75,7 +75,8 @@
             "funcAppName": "[toLower(concat(parameters('baseName'), parameters('suffix')))]",
             "funcStorageName": "[tolower(concat(substring(parameters('baseName'), 0, min(length(parameters('baseName')),16)), 'stg', parameters('suffix')))]",
             "serverFarmName": "[concat(substring(parameters('baseName'), 0, min(length(parameters('baseName')),14)), '-srv-', parameters('suffix'))]",
-            "repoURL": "https://github.com/FBoucher/AzSubcriptionCleaner.git"
+            "repoURL": "https://github.com/FBoucher/AzSubcriptionCleaner.git",
+            "functionProjectFolder": "azure-function"
           },
           "resources": [
             {
@@ -118,6 +119,10 @@
                     {
                       "name": "FUNCTIONS_WORKER_RUNTIME",
                       "value": "powershell"
+                    },
+                    {
+                      "name": "PROJECT",
+                      "value": "[variables('functionProjectFolder')]"
                     }
                   ]
                 }
