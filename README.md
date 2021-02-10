@@ -138,11 +138,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://cloud5mins.com"><img src="https://avatars3.githubusercontent.com/u/2404846?v=4" width="100px;" alt=""/><br /><sub><b>Frank Boucher</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Code">💻</a> <a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/ChrisIIx"><img src="https://avatars2.githubusercontent.com/u/47574928?v=4" width="100px;" alt=""/><br /><sub><b>Christopher Sl.</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=ChrisIIx" title="Documentation">📖</a> <a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=ChrisIIx" title="Code">💻</a></td>
+    <td align="center"><a href="http://cloud5mins.com"><img src="https://avatars3.githubusercontent.com/u/2404846?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Frank Boucher</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Code">💻</a> <a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=FBoucher" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/ChrisIIx"><img src="https://avatars2.githubusercontent.com/u/47574928?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Christopher Sl.</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=ChrisIIx" title="Documentation">📖</a> <a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=ChrisIIx" title="Code">💻</a></td>
+    <td align="center"><a href="http://linkedin.com/in/alexkhil"><img src="https://avatars.githubusercontent.com/u/29799046?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Khil</b></sub></a><br /><a href="https://github.com/FBoucher/AzSubscriptionCleaner/commits?author=alexkhil" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->

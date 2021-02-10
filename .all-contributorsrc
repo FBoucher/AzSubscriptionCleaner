@@ -29,6 +29,15 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "alexkhil",
+      "name": "Alex Khil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29799046?v=4",
+      "profile": "http://linkedin.com/in/alexkhil",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
