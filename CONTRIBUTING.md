@@ -7,6 +7,16 @@ in this project, you agree to abide by our [code of conduct](CODE_OF_CONDUCT.md)
 
 Add an issue.  We'll review it, add labels and reply within a few days.
 
+Thank you for this work, much appreciated!
+
+I have a use case for this script but I'm struggling with the tag part. My use case is as follows:
+A single subscription that is used for dev work however after three months any resource in the subscription older than three months should be deleted to minimize consumption cost. So ideally I would like to automatically tag any resource a user creates in this subscription with the expireOn tag. Could I use Azure Policy for this or instead a script that runs daily and any newly created resources gets assigned the tag expireOn if not already. Then your script runs to check for resources with the tag but only deletes them if they are older than three months.
+
+Hope this makes sense and thanks again!
+
+Cheers
+Yves
+
 ### See an issue you'd like to work on?
 
 Comment on the issue that you'd like to work on it and we'll add the `claimed` label.  If you see the `claimed` label already on the issue you might want to ask the contributor if they'd like some help.
